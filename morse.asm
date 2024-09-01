@@ -8,10 +8,11 @@ SECTION .data
 	morse_index	db	0, 3, 8, 13, 17, 19, 24, 28, 33, 36, 41, 45, 50, 53, 56, 60, 65, 70
 			db	74, 78, 80, 84, 89, 93, 98, 103
 
-	string		db	'CHANGE THIS DATA', 0h
+	string		db	'CHANGE THIS DATA. I am ADDING unKNOWN ÇHARS', 0h
 
 	spaceChar	db	' / ', 0h
 
+	unknownChar	db	'?', 0h
 
 SECTION .text
 	global	_start
@@ -26,6 +27,10 @@ starting:
 	je	exit						; if it is null, it means no any char to encode and print
 	cmp	eax,	20h
 	je	wordSpace					; if the input char is space, print " / "
+	cmp	eax,	5Ah
+	jg	unknown
+	cmp	eax,	41h
+	jl	unknown
 	mov	ecx,	40h
 	idiv	ecx
 
@@ -79,6 +84,15 @@ wordSpace:							; printing a slash between 2 space after every morse word
 
 	mov	edx,	3
 	mov	ecx,	spaceChar
+	mov	ebx,	1
+	mov	eax,	4
+	int	0x80
+
+	jmp	starting
+
+unknown:
+	mov	edx,	1
+	mov	ecx,	unknownChar
 	mov	ebx,	1
 	mov	eax,	4
 	int	0x80
