@@ -36,6 +36,7 @@ Also, in morse alphabet, every letter becomes split by space. And every word bec
 
 
 Since the program is a prototype of advanced version of itself, it does not get input from the console but the text you want to convert is hardcoded.
+Also, it only converts uppercase English letters.
 
 If you want to feed the program via console, you can add somethings like these:
 
